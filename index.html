@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Sacramento' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-hQpvDQiCJaD2H465dQfA717v7lu5qHWtDbWNPvaTJ0ID5xnPUlVXnKzq7b8YUkbN" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/primer.css"/>
+    <link rel="stylesheet" href="static/css/podcast.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+var cd = "d8a12ad2639501a4c756dcbfcc4b4ef3";
+var url = 'https://api.soundcloud.com/users/183997671/tracks?client_id='+ cd +'&limit=5';
+
+$.getJSON(url, function(tracks) {
+  $(tracks).each(function(n, track) {
+    var name = "episode";
+    var height = 166;
+    var id = "ep-"+n;
+
+    if (n > 0) {
+      name = "episode-small";
+      height = 20;
+    }
+
+    var uri = encodeURIComponent(track.uri);
+    var embed = '<iframe width="100%" height="'+ height +'" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + uri +
+                '&amp;color=86BBD8&amp;show_artwork=false&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>';
+
+    var el = $(".episodes").append("<div id='"+ id +"' class='" + name + "'><p class='title'>" + track.title + "</p></div>");
+    el.append(embed);
+
+    if (n == 0) {
+      var ps = track.description.split("\n")
+      for (var i = 0; i < ps.length; i++) {
+        p = ps[i].split(" ")
+        for (var j = 0; j < p.length; j++) {
+          if (p[j].startsWith("http")) {
+            p[j] = "<a href='"+ p[j] +"'>"+ p[j] +"</a>"
+          }
+        }
+        var desc = el.append("<p>");
+        desc.append(p.join(" "));
+      }
+    }
+  });
+});
+    </script>
+  </head>
+
+  <body style="background: white">
+    <header class="masthead">
+        <div class="container">
+            <div class="landscape">
+                <a href="/" class="masthead-logo">Dolls & Doughnuts</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+      <div class="container">
+          <div class="columns">
+            <div class="three-fourths column feed">
+              <div class="episodes">
+              </div>
+              <a href="https://itunes.apple.com/us/podcast/dolls-doughnuts/id1054747608">
+                <div class="callout">Find all episodes on iTunes</div>
+              </a>
+            </div>
+            <div class="one-fourth column">
+	            <p style="font-family: Sacramento; font-size: 3rem"></p>
+	            <div class="about">
+	            	<div class="clearfix logo">
+	            		<img src="static/images/logo.png"/>
+	            		<p>A monthly podcast about animal rights and vegan food.</p>
+	            	</div>
+	            	<div class="clearfix bio">
+	            		<img class="avatar" src="static/images/robin.jpg"/>
+	            		<p>Robin likes dogs, j-pop, and the color purple.</p>
+	            		<p><a href="http://vegandollhouse.com">@vegandollhouse</a></p>
+	            	</div>
+	            	<div class="clearfix bio">
+	            		<img class="avatar" src="static/images/ashley.png"/>
+	            		<p>Ashley likes tea, traveling, and the color orange.</p>
+	            		<p><a href="http://theveganadventure.com">@theveganadventure</a></p>
+	            	</div>
+	            </div>
+	            <div class="social clearfix">
+	            	<p style="font-family: Sacramento; font-size: 2rem">Follow us</p>
+	            	<p>
+	            		<a href="https://itunes.apple.com/us/podcast/dolls-doughnuts/id1054747608">
+	            		<span class="fa-stack fa-lg">
+	            			<i class="fa fa-circle fa-stack-2x"></i>
+	            			<i class="fa fa-apple fa-stack-1x fa-inverse"></i>
+	            		</span> iTunes
+	            		</a>
+	            	</p>
+	            	<p>
+	            		<a href="https://twitter.com/dollsanddoughnuts">
+	            		<span class="fa-stack fa-lg">
+	            			<i class="fa fa-circle fa-stack-2x"></i>
+	            			<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+	            		</span> Twitter
+	            		</a>
+	            	</p>
+	            	<p>
+	            		<a href="https://instagram.com/dollsanddoughnuts">
+	            		<span class="fa-stack fa-lg">
+	            			<i class="fa fa-circle fa-stack-2x"></i>
+	            			<i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+	            		</span> Instagram
+	            		</a>
+	            	</p>
+	            	<p>
+	            		<a href="https://www.youtube.com/channel/UCnK9ShI0B4IBEsRK865sgQQ">
+	            		<span class="fa-stack fa-lg">
+	            			<i class="fa fa-circle fa-stack-2x"></i>
+	            			<i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+	            		</span> YouTube
+	            		</a>
+	            	</p>
+	            </div>
+            </div>
+         </div>
+      </div>
+
+      <footer class="masthead">
+        <div class="container">
+            <div class="columns"></div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
